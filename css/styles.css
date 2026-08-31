@@ -670,6 +670,14 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .blog-body p { color: var(--color-silver); font-size: 0.92rem; }
 .blog-meta { font-size: 0.8rem; color: var(--color-silver); font-weight: 600; }
 
+/* Las tarjetas de blog son <a> que envuelven toda la tarjeta */
+.blog-card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.blog-card-link:hover h3 { color: var(--color-purple); }
+
 /* -------------------------------------------------------------------------
    17. TESTIMONIOS
    ------------------------------------------------------------------------- */
@@ -808,6 +816,89 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 @media (min-width: 1180px) {
   .hero-search-card { margin-left: 48px; margin-right: 48px; }
 }
+
+/* -------------------------------------------------------------------------
+   20. ARTÍCULO DE BLOG (páginas en /blog/)
+   ------------------------------------------------------------------------- */
+.article-container { max-width: 760px; margin: 0 auto; }
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  font-size: 0.92rem;
+}
+
+.article-page h1 { margin-top: 4px; }
+
+.article-meta {
+  color: var(--color-silver);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 28px;
+}
+
+.article-hero {
+  aspect-ratio: 16/9;
+  margin-bottom: 40px;
+}
+
+.article-body { font-size: 1.08rem; color: var(--color-ink); }
+.article-body p { margin-bottom: 1.3em; }
+.article-body h2 {
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+}
+.article-body h3 {
+  font-size: 1.1rem;
+  margin-top: 1.3em;
+}
+.article-body ul, .article-body ol {
+  margin: 0 0 1.3em;
+  padding-left: 1.3em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.article-body ul { list-style: disc; }
+.article-body ol { list-style: decimal; }
+.article-body li { padding-left: 0.3em; }
+.article-body strong { color: var(--color-navy); }
+
+.article-body blockquote {
+  margin: 1.8em 0;
+  padding: 20px 24px;
+  border-left: 3px solid var(--color-purple);
+  background: var(--color-bg);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--color-navy);
+}
+.article-body blockquote p:last-child { margin-bottom: 0; }
+
+.article-cta {
+  margin-top: 48px;
+  padding: 32px;
+  text-align: center;
+}
+.article-cta h3 { margin-bottom: 8px; }
+.article-cta p { color: var(--color-silver); margin-bottom: 20px; }
+
+.author-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--color-silver-light);
+}
+.author-box .img-placeholder { width: 56px; aspect-ratio: 1/1; border-radius: 50%; flex-shrink: 0; }
+.author-box strong { display: block; color: var(--color-navy); }
+.author-box span { font-size: 0.88rem; color: var(--color-silver); }
 
 /* =========================================================================
    ACCESIBILIDAD — reducir movimiento
