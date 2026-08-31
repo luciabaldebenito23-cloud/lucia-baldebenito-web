@@ -4,6 +4,46 @@
    ========================================================================= */
 
 /* -------------------------------------------------------------------------
+   0. TIPOGRAFÍA DE MARCA — Hello Paris Sans (con licencia, Sans&Sons ©2019)
+   5 pesos, sin cursiva, tal como especifica el Manual de Identidad.
+   ------------------------------------------------------------------------- */
+@font-face {
+  font-family: 'Hello Paris Sans';
+  src: url('../fonts/hello-paris-sans-extralight.woff2') format('woff2');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Hello Paris Sans';
+  src: url('../fonts/hello-paris-sans-light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Hello Paris Sans';
+  src: url('../fonts/hello-paris-sans-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Hello Paris Sans';
+  src: url('../fonts/hello-paris-sans-medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Hello Paris Sans';
+  src: url('../fonts/hello-paris-sans-bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* -------------------------------------------------------------------------
    1. VARIABLES DE MARCA
    ------------------------------------------------------------------------- */
 :root {
@@ -20,11 +60,8 @@
   --color-white: #FFFFFF;
   --color-ink: #14202B;         /* Texto de lectura sobre blanco */
 
-  /* Tipografía de marca
-     Hello Paris Sans es la tipografía oficial de títulos (con licencia).
-     Se usa Bricolage Grotesque como sustituto web de similar carácter;
-     reemplazar por @font-face con Hello Paris Sans cuando esté licenciada. */
-  --font-heading: 'Bricolage Grotesque', 'Hello Paris Sans', 'Segoe UI', sans-serif;
+  /* Tipografía de marca — Hello Paris Sans (títulos, con licencia) + Inter (cuerpo) */
+  --font-heading: 'Hello Paris Sans', 'Bricolage Grotesque', 'Segoe UI', sans-serif;
   --font-body: 'Inter', 'Segoe UI', sans-serif;
 
   /* Espaciado y forma */
@@ -56,16 +93,24 @@ body {
 img { max-width: 100%; display: block; }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-heading);
   color: var(--color-navy);
   line-height: 1.15;
   margin: 0 0 0.5em;
   font-weight: 700;
 }
 
+/* Hello Paris Sans (la tipografía editorial de marca) se reserva para los
+   títulos grandes de sección — H1 y H2 — donde su carácter decorativo
+   (may. estilizadas, "e" con travesaño) se luce. En H3/H4 se usa mucho
+   como título de tarjeta (propiedades, precios, servicios) a tamaños
+   chicos, y ahí esa decoración compite con la legibilidad; por eso H3/H4
+   usan Inter, la misma tipografía de UI/datos del resto del sitio. */
+h1, h2 { font-family: var(--font-heading); }
+h3, h4 { font-family: var(--font-body); }
+
 h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; }
 h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
-h3 { font-size: 1.2rem; font-weight: 600; }
+h3 { font-size: 1.2rem; font-weight: 700; }
 
 p { margin: 0 0 1em; }
 a { color: inherit; text-decoration: none; }
@@ -206,7 +251,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 
 .logo-text { display: flex; flex-direction: column; line-height: 1.15; }
-.logo-name { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; color: var(--color-navy); }
+.logo-name { font-family: var(--font-body); font-weight: 700; font-size: 1.05rem; color: var(--color-navy); }
 .logo-sub { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-silver); }
 
 .nav-toggle {
@@ -495,7 +540,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .tag-navy { background: var(--color-navy); }
 
 .property-body { padding: 22px; }
-.property-price { font-family: var(--font-heading); font-weight: 800; color: var(--color-purple); font-size: 1.2rem; margin-bottom: 10px; }
+.property-price { font-family: var(--font-body); font-weight: 800; color: var(--color-purple); font-size: 1.2rem; margin-bottom: 10px; }
 .property-meta { display: flex; gap: 14px; color: var(--color-silver); font-size: 0.85rem; margin-bottom: 14px; }
 .property-meta li::before { content: '·'; margin-right: 6px; color: var(--color-silver); }
 .property-meta li:first-child::before { content: ''; margin: 0; }
@@ -597,7 +642,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 .pricing-desc { color: var(--color-silver); font-size: 0.92rem; min-height: 3em; }
 .price {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-weight: 800;
   font-size: 2rem;
   color: var(--color-navy);
@@ -630,10 +675,10 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
    ------------------------------------------------------------------------- */
 .testimonial-card { padding: 30px; border: 1px solid var(--color-silver-light); }
 .testimonial-card p {
-  font-family: var(--font-heading);
+  font-family: var(--font-body);
   font-size: 1.05rem;
   color: var(--color-navy);
-  font-weight: 500;
+  font-weight: 600;
 }
 .testimonial-card footer { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
 .testimonial-avatar {
