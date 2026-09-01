@@ -88,5 +88,5 @@ Y abrí `http://localhost:8000` en el navegador.
 
 - Verificá el sitio en el celular real, no solo en el navegador de escritorio achicado.
 - Reemplazá los placeholders de imágenes por fotos reales.
-- Actualizá el teléfono y el email de contacto (actualmente son los de ejemplo del manual de marca: `+54 9 11 0000 0000` y `hola@luciabaldebenito.com`).
+- Actualizá el teléfono y el email de contacto (actualmente son de ejemplo: `+54 9 297 456-7890` y `hola@luciabaldebenito.com`).
 - Conectá el mapa real de Google Maps y las redes sociales verdaderas.
