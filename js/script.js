@@ -97,21 +97,97 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* -----------------------------------------------------------------------
      3. FILTROS DE PROPIEDADES
-     Dos grupos de filtro (operación y tipo) que se combinan entre sí.
+     Chips rápidos (operación y tipo) + panel de "Más filtros" (tipo, estado,
+     precio, apta crédito, barrio, ciudad). Los desplegables de tipo, estado,
+     barrio y ciudad se arman solos leyendo los data-* de las propiedades
+     que ya están cargadas, así que se van completando a medida que se
+     suben propiedades nuevas, sin tocar código.
      ----------------------------------------------------------------------- */
   var filterChips = document.querySelectorAll('.filter-chip');
   var propertyCards = document.querySelectorAll('.property-card');
   var emptyState = document.getElementById('propertiesEmpty');
 
-  var activeFilters = { operacion: 'todas', tipo: 'todos' };
+  var filtersToggle = document.getElementById('filtersToggle');
+  var advancedFilters = document.getElementById('advancedFilters');
+  var filterTipoSelect = document.getElementById('filterTipo');
+  var filterEstadoSelect = document.getElementById('filterEstado');
+  var filterBarrioSelect = document.getElementById('filterBarrio');
+  var filterCiudadSelect = document.getElementById('filterCiudad');
+  var filterAptaCreditoSelect = document.getElementById('filterAptaCredito');
+  var filterPrecioMin = document.getElementById('filterPrecioMin');
+  var filterPrecioMax = document.getElementById('filterPrecioMax');
+  var filtersClear = document.getElementById('filtersClear');
+
+  var TIPO_LABELS = {
+    casa: 'Casa',
+    departamento: 'Departamento',
+    terreno: 'Terreno',
+    local: 'Local / oficina',
+    ph: 'PH'
+  };
+
+  var activeFilters = {
+    operacion: 'todas',
+    tipo: 'todos',
+    estado: 'todos',
+    barrio: 'todos',
+    ciudad: 'todos',
+    aptaCredito: 'indistinto',
+    precioMin: null,
+    precioMax: null
+  };
+
+  /* Arma las opciones de un <select> a partir de los valores únicos que
+     encuentre en el data-attribute indicado de las propiedades cargadas. */
+  function populateSelectFromData(selectEl, dataKey, labelMap) {
+    if (!selectEl) return;
+    var values = [];
+    propertyCards.forEach(function (card) {
+      var raw = card.dataset[dataKey];
+      if (raw && values.indexOf(raw) === -1) { values.push(raw); }
+    });
+    values.sort(function (a, b) { return a.localeCompare(b, 'es'); });
+    values.forEach(function (value) {
+      var option = document.createElement('option');
+      option.value = value;
+      option.textContent = (labelMap && labelMap[value.toLowerCase()]) || value;
+      selectEl.appendChild(option);
+    });
+  }
+
+  populateSelectFromData(filterTipoSelect, 'tipo', TIPO_LABELS);
+  populateSelectFromData(filterEstadoSelect, 'estado');
+  populateSelectFromData(filterBarrioSelect, 'barrio');
+  populateSelectFromData(filterCiudadSelect, 'ciudad');
 
   function applyFilters() {
     var visibleCount = 0;
+    var precioMin = activeFilters.precioMin !== null && activeFilters.precioMin !== '' ? Number(activeFilters.precioMin) : null;
+    var precioMax = activeFilters.precioMax !== null && activeFilters.precioMax !== '' ? Number(activeFilters.precioMax) : null;
 
     propertyCards.forEach(function (card) {
       var matchesOperacion = activeFilters.operacion === 'todas' || card.dataset.operacion === activeFilters.operacion;
       var matchesTipo = activeFilters.tipo === 'todos' || card.dataset.tipo === activeFilters.tipo;
-      var isVisible = matchesOperacion && matchesTipo;
+      var matchesEstado = activeFilters.estado === 'todos' || card.dataset.estado === activeFilters.estado;
+      var matchesBarrio = activeFilters.barrio === 'todos' || card.dataset.barrio === activeFilters.barrio;
+      var matchesCiudad = activeFilters.ciudad === 'todos' || card.dataset.ciudad === activeFilters.ciudad;
+
+      var matchesAptaCredito = true;
+      if (activeFilters.aptaCredito !== 'indistinto') {
+        var aptaCredito = (card.dataset.aptaCredito || '').toLowerCase();
+        matchesAptaCredito = aptaCredito === activeFilters.aptaCredito;
+      }
+
+      var precio = card.dataset.precio ? Number(card.dataset.precio) : null;
+      var matchesPrecio = true;
+      if (precio !== null) {
+        if (precioMin !== null && precio < precioMin) { matchesPrecio = false; }
+        if (precioMax !== null && precio > precioMax) { matchesPrecio = false; }
+      } else if (precioMin !== null || precioMax !== null) {
+        matchesPrecio = false;
+      }
+
+      var isVisible = matchesOperacion && matchesTipo && matchesEstado && matchesBarrio && matchesCiudad && matchesAptaCredito && matchesPrecio;
 
       card.hidden = !isVisible;
       if (isVisible) { visibleCount++; }
@@ -137,9 +213,120 @@ document.addEventListener('DOMContentLoaded', function () {
       chip.setAttribute('aria-pressed', 'true');
 
       activeFilters[group] = value;
+
+      /* El chip de tipo y el select de tipo del panel avanzado comparten
+         el mismo estado — los mantenemos sincronizados en los dos sentidos. */
+      if (group === 'tipo' && filterTipoSelect) {
+        filterTipoSelect.value = value;
+      }
+
       applyFilters();
     });
   });
+
+  if (filterTipoSelect) {
+    filterTipoSelect.addEventListener('change', function () {
+      activeFilters.tipo = filterTipoSelect.value;
+
+      var matchingChip = document.querySelector('.filter-chip[data-filter-group="tipo"][data-filter-value="' + filterTipoSelect.value + '"]');
+      document.querySelectorAll('.filter-chip[data-filter-group="tipo"]').forEach(function (c) {
+        c.classList.remove('is-active');
+        c.setAttribute('aria-pressed', 'false');
+      });
+      if (matchingChip) {
+        matchingChip.classList.add('is-active');
+        matchingChip.setAttribute('aria-pressed', 'true');
+      }
+
+      applyFilters();
+    });
+  }
+
+  if (filterEstadoSelect) {
+    filterEstadoSelect.addEventListener('change', function () {
+      activeFilters.estado = filterEstadoSelect.value;
+      applyFilters();
+    });
+  }
+
+  if (filterBarrioSelect) {
+    filterBarrioSelect.addEventListener('change', function () {
+      activeFilters.barrio = filterBarrioSelect.value;
+      applyFilters();
+    });
+  }
+
+  if (filterCiudadSelect) {
+    filterCiudadSelect.addEventListener('change', function () {
+      activeFilters.ciudad = filterCiudadSelect.value;
+      applyFilters();
+    });
+  }
+
+  if (filterAptaCreditoSelect) {
+    filterAptaCreditoSelect.addEventListener('change', function () {
+      activeFilters.aptaCredito = filterAptaCreditoSelect.value;
+      applyFilters();
+    });
+  }
+
+  if (filterPrecioMin) {
+    filterPrecioMin.addEventListener('input', function () {
+      activeFilters.precioMin = filterPrecioMin.value;
+      applyFilters();
+    });
+  }
+
+  if (filterPrecioMax) {
+    filterPrecioMax.addEventListener('input', function () {
+      activeFilters.precioMax = filterPrecioMax.value;
+      applyFilters();
+    });
+  }
+
+  var filtersToggleLabel = filtersToggle ? filtersToggle.querySelector('.filters-toggle-label') : null;
+
+  if (filtersToggle && advancedFilters) {
+    filtersToggle.addEventListener('click', function () {
+      var isOpen = !advancedFilters.hidden;
+      advancedFilters.hidden = isOpen;
+      filtersToggle.setAttribute('aria-expanded', String(!isOpen));
+      if (filtersToggleLabel) {
+        filtersToggleLabel.textContent = isOpen ? 'Más filtros' : 'Menos filtros';
+      }
+    });
+  }
+
+  if (filtersClear) {
+    filtersClear.addEventListener('click', function () {
+      activeFilters = {
+        operacion: 'todas',
+        tipo: 'todos',
+        estado: 'todos',
+        barrio: 'todos',
+        ciudad: 'todos',
+        aptaCredito: 'indistinto',
+        precioMin: null,
+        precioMax: null
+      };
+
+      document.querySelectorAll('.filter-chip').forEach(function (c) {
+        var isDefault = c.dataset.filterValue === 'todas' || c.dataset.filterValue === 'todos';
+        c.classList.toggle('is-active', isDefault);
+        c.setAttribute('aria-pressed', String(isDefault));
+      });
+
+      if (filterTipoSelect) { filterTipoSelect.value = 'todos'; }
+      if (filterEstadoSelect) { filterEstadoSelect.value = 'todos'; }
+      if (filterBarrioSelect) { filterBarrioSelect.value = 'todos'; }
+      if (filterCiudadSelect) { filterCiudadSelect.value = 'todos'; }
+      if (filterAptaCreditoSelect) { filterAptaCreditoSelect.value = 'indistinto'; }
+      if (filterPrecioMin) { filterPrecioMin.value = ''; }
+      if (filterPrecioMax) { filterPrecioMax.value = ''; }
+
+      applyFilters();
+    });
+  }
 
   /* -----------------------------------------------------------------------
      4. VALIDACIÓN DE FORMULARIOS
