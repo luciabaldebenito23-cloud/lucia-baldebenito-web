@@ -476,13 +476,13 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   gap: 28px;
 }
 
-.service-card, .pricing-card, .blog-card, .testimonial-card {
+.service-card, .pricing-card, .blog-card, .testimonial-card, .descargable-card {
   background: var(--color-white);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-soft);
   transition: transform var(--transition), box-shadow var(--transition);
 }
-.service-card:hover, .blog-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-medium); }
+.service-card:hover, .blog-card:hover, .descargable-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-medium); }
 
 .service-card { padding: 30px; border: 1px solid var(--color-silver-light); }
 .service-card .icon-lg { margin-bottom: 16px; }
@@ -713,6 +713,54 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 
 /* -------------------------------------------------------------------------
+   15B. DESCARGABLES
+   ------------------------------------------------------------------------- */
+.descargable-card {
+  padding: 28px;
+  border: 1px solid var(--color-silver-light);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.descargable-card h3 { margin: 0; }
+.descargable-card > p { color: var(--color-silver); font-size: 0.95rem; margin: 0; }
+
+.tag-format {
+  align-self: flex-start;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--color-white);
+}
+.tag-format-turquoise { background: var(--color-turquoise); }
+
+.descargable-precio {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: var(--color-navy);
+  margin: 0;
+}
+
+.descargable-compra-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 4px;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-silver-light);
+}
+
+.descargables-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-silver);
+  padding: 40px 0;
+}
+
+/* -------------------------------------------------------------------------
    16. BLOG
    ------------------------------------------------------------------------- */
 .blog-media { border-radius: 0; aspect-ratio: 16/10; }
@@ -856,6 +904,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   .cards-grid.properties-grid { grid-template-columns: repeat(3, 1fr); }
   .cards-grid.blog-grid { grid-template-columns: repeat(3, 1fr); }
   .cards-grid.testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+  .cards-grid.descargables-grid { grid-template-columns: repeat(3, 1fr); }
   .pricing-grid { grid-template-columns: repeat(3, 1fr); }
 
   .pricing-card.is-featured { transform: scale(1.04); }

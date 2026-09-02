@@ -477,6 +477,82 @@ document.addEventListener('DOMContentLoaded', function () {
   handleFormSubmit('tasacionForm', 'tasacionSuccess', 'tasacionError');
   handleFormSubmit('contactoForm', 'contactoSuccess', 'contactoError');
 
+  /**
+   * Formularios de "interés de compra" dentro de las tarjetas de
+   * Descargables (uno por ítem pago). A diferencia de handleFormSubmit,
+   * pueden existir varios en la misma página, así que se buscan por
+   * clase y cada uno usa sus propios mensajes de éxito/error internos.
+   * Al enviarse OK, se abre en una pestaña nueva el link de pago de
+   * Mercado Pago guardado en data-checkout-url del propio formulario.
+   * Esto solo avisa que alguien quiere comprar: la confirmación real del
+   * pago se revisa a mano en la cuenta de Mercado Pago antes de mandar
+   * el archivo por email.
+   */
+  function handleDescargableForms() {
+    var forms = document.querySelectorAll('.descargable-compra-form');
+
+    forms.forEach(function (form) {
+      var successEl = form.querySelector('.descargable-success');
+      var errorEl = form.querySelector('.descargable-error');
+
+      attachLiveValidation(form);
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        if (successEl) { successEl.hidden = true; }
+        if (errorEl) { errorEl.hidden = true; }
+
+        if (!validateForm(form)) {
+          var firstError = form.querySelector('.has-error input, .has-error select, .has-error textarea');
+          if (firstError) { firstError.focus(); }
+          return;
+        }
+
+        var submitBtn = form.querySelector('button[type="submit"]');
+        var originalBtnText = submitBtn ? submitBtn.textContent : '';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Enviando...';
+        }
+
+        var formData = new FormData(form);
+
+        fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        })
+          .then(function (response) {
+            if (!response.ok) { throw new Error('Envío no exitoso'); }
+            if (successEl) {
+              successEl.hidden = false;
+              successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            form.reset();
+            var checkoutUrl = form.dataset.checkoutUrl;
+            if (checkoutUrl) {
+              window.open(checkoutUrl, '_blank', 'noopener');
+            }
+          })
+          .catch(function () {
+            if (errorEl) {
+              errorEl.hidden = false;
+              errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          })
+          .finally(function () {
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalBtnText;
+            }
+          });
+      });
+    });
+  }
+
+  handleDescargableForms();
+
   /* -----------------------------------------------------------------------
      5. BUSCADOR SIMULADO DEL HERO
      Desplaza suavemente hasta "Propiedades" y aplica los filtros elegidos
