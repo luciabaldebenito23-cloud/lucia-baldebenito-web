@@ -16,6 +16,13 @@ lucia-baldebenito/
 │   ├── alquilar-o-vender.html
 │   ├── como-se-calcula-el-valor.html
 │   └── autogestionar-tu-alquiler.html
+├── propiedades/            → Ficha completa de cada propiedad (fotos, video, m², mapa, descripción)
+│   ├── casa-general-mosconi.html
+│   ├── depto-palazzo.html
+│   ├── casa-rada-tilly.html
+│   ├── casa-km8.html
+│   ├── casa-stella-maris.html
+│   └── depto-km3.html
 ├── img/
 │   ├── propiedades/        → Fotos reales de propiedades (ver README.txt adentro)
 │   └── blog/                → Fotos de portada de artículos (ver README.txt adentro)
@@ -34,10 +41,12 @@ Es la estructura recomendada para cualquier hosting estático (GitHub Pages, Net
 
 ## Formularios
 
-Los formularios de Tasación y Contacto validan en el navegador (campos obligatorios, formato de email y teléfono) pero **no envían datos a ningún servidor todavía** — al enviar, simulan un envío exitoso. Para producción, elegí una de estas opciones:
+Los formularios de Tasación y Contacto validan en el navegador (campos obligatorios, formato de email y teléfono) y **ya están conectados** a [FormSubmit.co](https://formsubmit.co), un servicio de formulario-a-email para sitios estáticos que no requiere backend propio ni cuenta: cada envío llega directo a `inmobiliarialb.cr@gmail.com`.
 
-1. **Formspree / Netlify Forms**: agregá `action` y `method` al `<form>` y un atributo `data-netlify="true"` (si usás Netlify), sin tocar el JS.
-2. **Backend propio**: reemplazá el bloque comentado dentro de `handleFormSubmit()` en `script.js` por un `fetch()` a tu endpoint.
+- La primera vez que alguien complete un formulario, FormSubmit manda un mail a esa casilla pidiendo confirmarla — hay que clickear el link una sola vez para activar el envío automático de ahí en más.
+- El destino está definido en el atributo `action` de cada `<form>` en `index.html` (`https://formsubmit.co/inmobiliarialb.cr@gmail.com`). Para cambiar el mail de destino, se edita ese `action` en los dos formularios.
+- El envío real ocurre en `handleFormSubmit()` dentro de `script.js`, vía `fetch()` con `Accept: application/json` (así se evita la página intermedia de FormSubmit y se mantiene la experiencia de éxito/error propia del sitio).
+- Si el envío falla (por ejemplo, sin conexión), se muestra un mensaje de error con un link directo a WhatsApp como alternativa.
 
 ## Cómo probarlo localmente
 

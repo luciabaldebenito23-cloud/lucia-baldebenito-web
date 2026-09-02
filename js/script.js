@@ -227,9 +227,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  function handleFormSubmit(formId, successId) {
+  function handleFormSubmit(formId, successId, errorId) {
     var form = document.getElementById(formId);
     var successEl = document.getElementById(successId);
+    var errorEl = errorId ? document.getElementById(errorId) : null;
     if (!form) return;
 
     attachLiveValidation(form);
@@ -237,26 +238,57 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
+      if (successEl) { successEl.hidden = true; }
+      if (errorEl) { errorEl.hidden = true; }
+
       if (!validateForm(form)) {
         var firstError = form.querySelector('.has-error input, .has-error select, .has-error textarea');
         if (firstError) { firstError.focus(); }
-        if (successEl) { successEl.hidden = true; }
         return;
       }
 
-      /* Sin backend conectado todavía: se simula el envío exitoso.
-         Para producción, reemplazar por un fetch() a tu endpoint / servicio
-         de formularios (Formspree, Netlify Forms, backend propio, etc). */
-      if (successEl) {
-        successEl.hidden = false;
-        successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      /* Envío real del formulario vía FormSubmit.co (formulario-a-email,
+         sin backend propio). El fetch con Accept: application/json evita
+         la página intermedia de confirmación y devuelve JSON directo. */
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var originalBtnText = submitBtn ? submitBtn.textContent : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
       }
-      form.reset();
+
+      var formData = new FormData(form);
+
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      })
+        .then(function (response) {
+          if (!response.ok) { throw new Error('Envío no exitoso'); }
+          if (successEl) {
+            successEl.hidden = false;
+            successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+          form.reset();
+        })
+        .catch(function () {
+          if (errorEl) {
+            errorEl.hidden = false;
+            errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        })
+        .finally(function () {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+          }
+        });
     });
   }
 
-  handleFormSubmit('tasacionForm', 'tasacionSuccess');
-  handleFormSubmit('contactoForm', 'contactoSuccess');
+  handleFormSubmit('tasacionForm', 'tasacionSuccess', 'tasacionError');
+  handleFormSubmit('contactoForm', 'contactoSuccess', 'contactoError');
 
   /* -----------------------------------------------------------------------
      5. BUSCADOR SIMULADO DEL HERO
