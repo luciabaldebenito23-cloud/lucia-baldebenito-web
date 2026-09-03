@@ -349,6 +349,21 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
     repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 14px);
 }
 
+/* Variante con foto real: mismo tamaño/proporción/bordes que el placeholder,
+   pero sin degradé de marca ni patrón decorativo — la foto ocupa todo el
+   recuadro (object-fit: cover) sin deformarse. */
+.img-placeholder.has-photo { background: none; }
+.img-placeholder.has-photo::after { display: none; }
+.img-placeholder.has-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* Retrato vertical recortado en una caja más ancha: subimos el foco para
+   no cortar la cara. */
+.about-photo.has-photo img { object-position: center 12%; }
+
 /* -------------------------------------------------------------------------
    8. HERO
    ------------------------------------------------------------------------- */
@@ -458,7 +473,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 
 /* -------------------------------------------------------------------------
-   10. SOBRE NOSOTROS
+   10. SOBRE MÍ
    ------------------------------------------------------------------------- */
 .about-grid { display: grid; gap: 48px; align-items: center; }
 
