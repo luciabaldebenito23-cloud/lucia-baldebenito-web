@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/styles.css?v=12">
+<link rel="stylesheet" href="../css/styles.css?v=13">
 </head>
 <body>
 
@@ -34,25 +34,42 @@
         <li><a href="../index.html#inicio" class="nav-link">Inicio</a></li>
         <li><a href="../index.html#nosotros" class="nav-link">Sobre mí</a></li>
         <li class="nav-dropdown">
-          <button type="button" class="nav-link nav-dropdown-trigger" aria-expanded="false">
-            Servicios
-            <svg class="icon nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
+          <div class="nav-dropdown-head">
+            <a href="../index.html#servicios" class="nav-link">Servicios</a>
+            <button type="button" class="nav-dropdown-caret" aria-expanded="false" aria-label="Mostrar más opciones de Servicios">
+              <svg class="icon nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
           <ul class="nav-dropdown-menu">
             <li class="nav-dropdown">
-              <button type="button" class="nav-link nav-dropdown-trigger" aria-expanded="false">
-                Consultoría
-                <svg class="icon nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-              </button>
+              <div class="nav-dropdown-head">
+                <a href="../index.html#consultoria" class="nav-link">Consultoría</a>
+                <button type="button" class="nav-dropdown-caret" aria-expanded="false" aria-label="Mostrar más opciones de Consultoría">
+                  <svg class="icon nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+              </div>
               <ul class="nav-dropdown-menu">
                 <li><a href="../index.html#precios" class="nav-link">Planes</a></li>
                 <li><a href="../index.html#descargables" class="nav-link">Descargables</a></li>
               </ul>
             </li>
+            <li><a href="../index.html#administracion-consorcios" class="nav-link">Administración de consorcios</a></li>
             <li><a href="../index.html#tasaciones" class="nav-link">Tasaciones</a></li>
           </ul>
         </li>
-        <li><a href="../index.html#propiedades" class="nav-link">Propiedades</a></li>
+        <li class="nav-dropdown">
+          <div class="nav-dropdown-head">
+            <a href="../index.html#propiedades" class="nav-link">Propiedades</a>
+            <button type="button" class="nav-dropdown-caret" aria-expanded="false" aria-label="Mostrar más opciones de Propiedades">
+              <svg class="icon nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="nav-dropdown-menu">
+            <li><a href="../propiedades/ventas.html" class="nav-link">Ventas</a></li>
+            <li><a href="../propiedades/alquileres.html" class="nav-link">Alquileres</a></li>
+            <li><a href="../propiedades/emprendimientos.html" class="nav-link">Emprendimientos</a></li>
+          </ul>
+        </li>
         <li><a href="../index.html#blog" class="nav-link is-active">Blog</a></li>
         <li><a href="../index.html#contacto" class="nav-link">Contacto</a></li>
       </ul>
@@ -235,6 +252,7 @@
       <a href="../index.html#servicios">Servicios</a>
       <a href="../index.html#propiedades">Propiedades</a>
       <a href="../index.html#consultoria">Consultoría</a>
+      <a href="../index.html#administracion-consorcios">Administración de consorcios</a>
       <a href="../index.html#precios">Planes</a>
       <a href="../index.html#blog">Blog</a>
       <a href="../index.html#contacto">Contacto</a>
@@ -250,6 +268,6 @@
   </div>
 </footer>
 
-<script src="../js/script.js?v=12"></script>
+<script src="../js/script.js?v=13"></script>
 </body>
 </html>

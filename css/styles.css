@@ -136,6 +136,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .section-head { max-width: 640px; margin: 0 0 48px; }
 .section-sub { color: var(--color-silver); font-size: 1.05rem; }
 .section-cta { text-align: center; margin-top: 48px; }
+.properties-destacadas-label { margin-top: 44px; }
 
 .lead-text { font-size: 1.1rem; color: var(--color-ink); }
 
@@ -309,24 +310,35 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 
 .nav-cta { margin-top: 20px; }
 
-/* Desplegables del menú (Servicios → Consultoría / Tasaciones,
-   y Consultoría → Planes / Descargables). En mobile funcionan como
-   acordeón dentro del panel; en desktop el de primer nivel (Servicios)
-   flota como panel, y el anidado (Consultoría) queda como acordeón
-   adentro de ese panel. */
+/* Desplegables del menú (Servicios → Consultoría / Administración de
+   consorcios / Tasaciones; Consultoría → Planes / Descargables;
+   Propiedades → Ventas / Alquileres / Emprendimientos). El texto del
+   ítem (Servicios, Consultoría, Propiedades) es un link normal que
+   lleva a su sección; la flechita al lado es un botón aparte que solo
+   abre/cierra el submenú, así los dos funcionan de forma independiente.
+   En mobile el submenú es un acordeón dentro del panel; en desktop el
+   de primer nivel flota como panel, y uno anidado (Consultoría) queda
+   como acordeón adentro de ese panel. */
 .nav-dropdown { position: relative; }
-.nav-dropdown-trigger {
+.nav-dropdown-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  width: 100%;
+  border-bottom: 1px solid var(--color-silver-light);
+}
+.nav-dropdown-head .nav-link { flex: 1; border-bottom: none; }
+.nav-dropdown-caret {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
   background: none;
   border: none;
-  text-align: left;
+  color: var(--color-navy);
 }
 .nav-caret { width: 16px; height: 16px; transition: transform var(--transition); }
-.nav-dropdown-trigger[aria-expanded="true"] > .nav-caret { transform: rotate(180deg); }
+.nav-dropdown-caret[aria-expanded="true"] .nav-caret { transform: rotate(180deg); }
 
 .nav-dropdown-menu {
   display: none;
@@ -643,6 +655,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 
 .link-arrow { font-weight: 700; color: var(--color-navy); }
 .link-arrow:hover { color: var(--color-purple); }
+.service-card .link-arrow { display: inline-block; margin-top: 12px; }
 
 .empty-state {
   text-align: center;
@@ -697,6 +710,12 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .method-steps span { color: rgba(255,255,255,0.72); font-size: 0.9rem; }
 
 .consultoria-photo { aspect-ratio: 4/5; background: linear-gradient(135deg, #0D2C4A 0%, #00A896 100%); }
+
+/* -------------------------------------------------------------------------
+   13b. ADMINISTRACIÓN DE CONSORCIOS
+   ------------------------------------------------------------------------- */
+.consorcios-grid { display: grid; gap: 48px; align-items: center; }
+.consorcios-photo { aspect-ratio: 4/5; background: linear-gradient(135deg, #0D2C4A 0%, #4B2468 100%); }
 
 /* -------------------------------------------------------------------------
    14. TASACIONES
@@ -945,7 +964,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   .nav-link { padding: 8px 12px; border-bottom: none; font-size: 0.92rem; }
   .nav-cta { margin-top: 0; }
 
-  .nav-dropdown-trigger { width: auto; }
+  .nav-dropdown-head { border-bottom: none; }
 
   /* Panel flotante del desplegable de primer nivel (Servicios) */
   .primary-nav > ul > .nav-dropdown > .nav-dropdown-menu {
@@ -985,6 +1004,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   .hero-grid { grid-template-columns: 1.1fr 0.95fr; }
   .about-grid { grid-template-columns: 0.85fr 1.15fr; }
   .consultoria-grid { grid-template-columns: 1.1fr 0.9fr; }
+  .consorcios-grid { grid-template-columns: 0.9fr 1.1fr; }
   .tasacion-grid { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: 1fr 1fr; }
 

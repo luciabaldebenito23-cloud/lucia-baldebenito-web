@@ -63,22 +63,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
   /* -----------------------------------------------------------------------
      1b. DESPLEGABLES DEL MENÚ
-     "Servicios" se abre y adentro muestra "Consultoría" (que a su vez se
-     despliega en "Planes" y "Descargables") y "Tasaciones". En mobile todo
-     funciona como acordeón dentro del panel; en desktop el de Servicios
-     flota como panel y el de Consultoría queda como acordeón adentro.
+     Servicios, Consultoría y Propiedades son, cada uno, un link normal
+     (lleva directo a su sección) MÁS un botón de flechita aparte que solo
+     abre/cierra su submenú — los dos funcionan de forma independiente.
+     En mobile el submenú es un acordeón dentro del panel; en desktop el
+     de primer nivel flota como panel y uno anidado (Consultoría) queda
+     como acordeón adentro de ese panel.
      ----------------------------------------------------------------------- */
-  var navDropdownTriggers = document.querySelectorAll('.nav-dropdown-trigger');
+  var navDropdownTriggers = document.querySelectorAll('.nav-dropdown-caret');
 
   function closeDropdown(trigger) {
     trigger.setAttribute('aria-expanded', 'false');
-    var menu = trigger.nextElementSibling;
+    var head = trigger.closest('.nav-dropdown-head');
+    var menu = head ? head.nextElementSibling : null;
     if (menu) { menu.classList.remove('is-open'); }
   }
 
   function openDropdown(trigger) {
     trigger.setAttribute('aria-expanded', 'true');
-    var menu = trigger.nextElementSibling;
+    var head = trigger.closest('.nav-dropdown-head');
+    var menu = head ? head.nextElementSibling : null;
     if (menu) { menu.classList.add('is-open'); }
   }
 
@@ -195,6 +199,14 @@ document.addEventListener('DOMContentLoaded', function () {
     precioMax: null
   };
 
+  /* Páginas de Ventas / Alquileres / Emprendimientos no tienen chip de
+     operación (ya está implícito en la página): la sección de propiedades
+     trae un data-operacion-fixed y lo usamos como filtro fijo. */
+  var propertiesSectionFixed = document.querySelector('[data-operacion-fixed]');
+  if (propertiesSectionFixed) {
+    activeFilters.operacion = propertiesSectionFixed.dataset.operacionFixed;
+  }
+
   /* Arma las opciones de un <select> a partir de los valores únicos que
      encuentre en el data-attribute indicado de las propiedades cargadas. */
   function populateSelectFromData(selectEl, dataKey, labelMap) {
@@ -217,6 +229,25 @@ document.addEventListener('DOMContentLoaded', function () {
   populateSelectFromData(filterEstadoSelect, 'estado');
   populateSelectFromData(filterBarrioSelect, 'barrio');
   populateSelectFromData(filterCiudadSelect, 'ciudad');
+
+  /* Si se llega desde el buscador del inicio con un tipo elegido
+     (?tipo=casa), lo preseleccionamos acá — tanto en el chip rápido como
+     en el select del panel avanzado. */
+  var urlParams = new URLSearchParams(window.location.search);
+  var urlTipo = urlParams.get('tipo');
+  if (urlTipo) {
+    var urlTipoChip = document.querySelector('.filter-chip[data-filter-group="tipo"][data-filter-value="' + urlTipo + '"]');
+    if (urlTipoChip) {
+      document.querySelectorAll('.filter-chip[data-filter-group="tipo"]').forEach(function (c) {
+        c.classList.remove('is-active');
+        c.setAttribute('aria-pressed', 'false');
+      });
+      urlTipoChip.classList.add('is-active');
+      urlTipoChip.setAttribute('aria-pressed', 'true');
+      activeFilters.tipo = urlTipo;
+    }
+    if (filterTipoSelect && urlTipoChip) { filterTipoSelect.value = urlTipo; }
+  }
 
   /* Corre una vez al cargar la página, además de en cada cambio de filtro,
      para que el aviso de "no hay propiedades" también aparezca cuando
@@ -618,26 +649,27 @@ document.addEventListener('DOMContentLoaded', function () {
   handleDescargableForms();
 
   /* -----------------------------------------------------------------------
-     5. BUSCADOR SIMULADO DEL HERO
-     Desplaza suavemente hasta "Propiedades" y aplica los filtros elegidos
-     cuando existe un chip equivalente.
+     5. BUSCADOR DEL HERO
+     Lleva directo a la página de Ventas, Alquileres o Emprendimientos
+     según la operación elegida, con el tipo (si se eligió uno) como
+     parámetro en la URL para que esa página lo preseleccione.
      ----------------------------------------------------------------------- */
   var heroSearchForm = document.getElementById('heroSearchForm');
   if (heroSearchForm) {
+    var PAGE_BY_OPERACION = {
+      venta: 'propiedades/ventas.html',
+      alquiler: 'propiedades/alquileres.html',
+      emprendimiento: 'propiedades/emprendimientos.html'
+    };
+
     heroSearchForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
       var operacion = document.getElementById('searchOperacion').value;
-      var tipo = document.getElementById('searchTipo').value || 'todos';
+      var tipo = document.getElementById('searchTipo').value;
 
-      var opChip = document.querySelector('.filter-chip[data-filter-group="operacion"][data-filter-value="' + operacion + '"]');
-      var tipoChip = document.querySelector('.filter-chip[data-filter-group="tipo"][data-filter-value="' + tipo + '"]');
-
-      if (opChip) { opChip.click(); }
-      if (tipoChip) { tipoChip.click(); }
-
-      var target = document.getElementById('propiedades');
-      if (target) { target.scrollIntoView({ behavior: 'smooth' }); }
+      var targetPage = PAGE_BY_OPERACION[operacion] || PAGE_BY_OPERACION.venta;
+      window.location.href = targetPage + (tipo ? '?tipo=' + encodeURIComponent(tipo) : '');
     });
   }
 

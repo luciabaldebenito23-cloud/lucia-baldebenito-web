@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/styles.css?v=12">
+<link rel="stylesheet" href="css/styles.css?v=13">
 </head>
 <body>
 
@@ -37,25 +37,42 @@
         <li><a href="#inicio" class="nav-link">Inicio</a></li>
         <li><a href="#nosotros" class="nav-link">Sobre mí</a></li>
         <li class="nav-dropdown">
-          <button type="button" class="nav-link nav-dropdown-trigger" aria-expanded="false">
-            Servicios
-            <svg class="icon nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-          </button>
+          <div class="nav-dropdown-head">
+            <a href="#servicios" class="nav-link">Servicios</a>
+            <button type="button" class="nav-dropdown-caret" aria-expanded="false" aria-label="Mostrar más opciones de Servicios">
+              <svg class="icon nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
           <ul class="nav-dropdown-menu">
             <li class="nav-dropdown">
-              <button type="button" class="nav-link nav-dropdown-trigger" aria-expanded="false">
-                Consultoría
-                <svg class="icon nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
-              </button>
+              <div class="nav-dropdown-head">
+                <a href="#consultoria" class="nav-link">Consultoría</a>
+                <button type="button" class="nav-dropdown-caret" aria-expanded="false" aria-label="Mostrar más opciones de Consultoría">
+                  <svg class="icon nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+              </div>
               <ul class="nav-dropdown-menu">
                 <li><a href="#precios" class="nav-link">Planes</a></li>
                 <li><a href="#descargables" class="nav-link">Descargables</a></li>
               </ul>
             </li>
+            <li><a href="#administracion-consorcios" class="nav-link">Administración de consorcios</a></li>
             <li><a href="#tasaciones" class="nav-link">Tasaciones</a></li>
           </ul>
         </li>
-        <li><a href="#propiedades" class="nav-link">Propiedades</a></li>
+        <li class="nav-dropdown">
+          <div class="nav-dropdown-head">
+            <a href="#propiedades" class="nav-link">Propiedades</a>
+            <button type="button" class="nav-dropdown-caret" aria-expanded="false" aria-label="Mostrar más opciones de Propiedades">
+              <svg class="icon nav-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <ul class="nav-dropdown-menu">
+            <li><a href="propiedades/ventas.html" class="nav-link">Ventas</a></li>
+            <li><a href="propiedades/alquileres.html" class="nav-link">Alquileres</a></li>
+            <li><a href="propiedades/emprendimientos.html" class="nav-link">Emprendimientos</a></li>
+          </ul>
+        </li>
         <li><a href="#blog" class="nav-link">Blog</a></li>
         <li><a href="#contacto" class="nav-link">Contacto</a></li>
       </ul>
@@ -101,6 +118,7 @@
               <select id="searchOperacion" name="operacion">
                 <option value="venta">Venta</option>
                 <option value="alquiler">Alquiler</option>
+                <option value="emprendimiento">Emprendimiento</option>
               </select>
             </div>
             <div class="field">
@@ -216,6 +234,12 @@
         <h3>Gestión documental</h3>
         <p>Te asesoramos sobre cómo está tu documentación y si estás preparado/a para vender sin problemas.</p>
       </article>
+      <article class="service-card">
+        <svg class="icon icon-lg icon-purple" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M9 11h.01M15 11h.01M9 7h.01M15 7h.01"/></svg>
+        <h3>Administración de consorcios</h3>
+        <p>Expensas, proveedores, mantenimiento y asambleas: la gestión diaria de tu edificio, ordenada y transparente.</p>
+        <a href="#administracion-consorcios" class="link-arrow">Ver qué incluye →</a>
+      </article>
     </div>
   </div>
 </section>
@@ -226,73 +250,16 @@
     <div class="section-head">
       <p class="eyebrow eyebrow-purple">Propiedades</p>
       <h2>Propiedades verificadas, con toda la información por delante</h2>
-      <p class="section-sub">Filtrá por operación, tipo, estado, precio, barrio y más. Cada ficha tiene el dato completo: nada de "consultar precio".</p>
+      <p class="section-sub">Elegí qué estás buscando. Cada ficha tiene el dato completo: nada de "consultar precio".</p>
     </div>
 
-    <div class="filters-bar" role="group" aria-label="Filtros de propiedades">
-      <div class="filter-group" role="group" aria-label="Filtrar por operación">
-        <button class="filter-chip is-active" data-filter-group="operacion" data-filter-value="todas">Todas</button>
-        <button class="filter-chip" data-filter-group="operacion" data-filter-value="venta">Venta</button>
-        <button class="filter-chip" data-filter-group="operacion" data-filter-value="alquiler">Alquiler</button>
-      </div>
-      <div class="filter-group" role="group" aria-label="Filtrar por tipo de propiedad">
-        <button class="filter-chip is-active" data-filter-group="tipo" data-filter-value="todos">Todos los tipos</button>
-        <button class="filter-chip" data-filter-group="tipo" data-filter-value="casa">Casas</button>
-        <button class="filter-chip" data-filter-group="tipo" data-filter-value="departamento">Departamentos</button>
-      </div>
-      <button type="button" class="btn btn-outline filters-toggle" id="filtersToggle" aria-expanded="false" aria-controls="advancedFilters">
-        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="1.6" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="7" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>
-        <span class="filters-toggle-label">Más filtros</span>
-        <svg class="icon icon-chevron" viewBox="0 0 24 24" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-      </button>
+    <div class="hero-actions">
+      <a href="propiedades/ventas.html" class="btn btn-primary">Ventas</a>
+      <a href="propiedades/alquileres.html" class="btn btn-outline">Alquileres</a>
+      <a href="propiedades/emprendimientos.html" class="btn btn-outline">Emprendimientos</a>
     </div>
 
-    <div class="advanced-filters" id="advancedFilters" hidden>
-      <div class="field">
-        <label for="filterTipo">Tipo de propiedad</label>
-        <select id="filterTipo">
-          <option value="todos">Todos</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="filterEstado">Estado</label>
-        <select id="filterEstado">
-          <option value="todos">Todos</option>
-        </select>
-      </div>
-      <div class="field field-price-range">
-        <label for="filterPrecioMin">Precio</label>
-        <div class="price-range-inputs">
-          <input type="number" id="filterPrecioMin" min="0" placeholder="Desde" inputmode="numeric">
-          <span aria-hidden="true">—</span>
-          <input type="number" id="filterPrecioMax" min="0" placeholder="Hasta" inputmode="numeric">
-        </div>
-        <p class="field-hint">En USD para propiedades en venta, en pesos para alquiler.</p>
-      </div>
-      <div class="field">
-        <label for="filterAptaCredito">Apta crédito</label>
-        <select id="filterAptaCredito">
-          <option value="indistinto">Indistinto</option>
-          <option value="si">Sí</option>
-          <option value="no">No</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="filterBarrio">Barrio</label>
-        <select id="filterBarrio">
-          <option value="todos">Todos</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="filterCiudad">Ciudad</label>
-        <select id="filterCiudad">
-          <option value="todos">Todos</option>
-        </select>
-      </div>
-      <div class="advanced-filters-actions">
-        <button type="button" class="btn btn-outline btn-sm" id="filtersClear">Limpiar filtros</button>
-      </div>
-    </div>
+    <p class="eyebrow eyebrow-purple small properties-destacadas-label">Destacadas</p>
 
     <div class="cards-grid properties-grid" id="propertiesGrid">
 
@@ -317,10 +284,41 @@
 
     </div>
 
-    <p class="empty-state" id="propertiesEmpty" hidden>Por el momento no tengo propiedades cargadas. Escribime y te aviso apenas publique una nueva.</p>
+    <p class="empty-state" id="propertiesEmpty" hidden>Por el momento no tengo propiedades destacadas cargadas. Mirá el listado completo en Ventas, Alquileres o Emprendimientos.</p>
 
     <div class="section-cta">
       <a href="#tasaciones" class="btn btn-outline">¿Vas a vender o alquilar? Pedí tu tasación</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 4b. ADMINISTRACIÓN DE CONSORCIOS ==================== -->
+<section class="section section-tint" id="administracion-consorcios">
+  <div class="container consorcios-grid">
+    <div class="consorcios-copy">
+      <p class="eyebrow eyebrow-purple">Administración de consorcios</p>
+      <h2>Tu edificio, con una gestión ordenada y sin sorpresas</h2>
+      <p class="lead-text">
+        Además del corretaje, administro consorcios de propietarios: la
+        gestión diaria de tu edificio o complejo, con el mismo criterio de
+        transparencia y orden que aplico en cada tasación. Vos y el resto
+        de los propietarios saben en todo momento en qué se gasta y por qué.
+      </p>
+      <ul class="check-list">
+        <li><svg class="icon icon-purple" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Liquidación y cobro de expensas, con rendición de cuentas clara cada mes</li>
+        <li><svg class="icon icon-purple" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Pago y seguimiento de proveedores: limpieza, mantenimiento, seguridad</li>
+        <li><svg class="icon icon-purple" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Coordinación de mantenimiento preventivo y reparaciones de espacios comunes</li>
+        <li><svg class="icon icon-purple" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Gestión del personal de edificio: legajos, aportes y ART en regla</li>
+        <li><svg class="icon icon-purple" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Convocatoria, organización y actas de asambleas de propietarios</li>
+        <li><svg class="icon icon-purple" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Gestión de seguros del edificio y cumplimiento de la normativa vigente</li>
+        <li><svg class="icon icon-purple" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Atención directa a los reclamos y consultas de cada propietario/a</li>
+      </ul>
+      <a href="#contacto" class="btn btn-primary">Consultar por mi consorcio</a>
+    </div>
+    <div class="consorcios-visual">
+      <div class="img-placeholder has-photo consorcios-photo">
+        <img src="img/consultoria-autogestionar.jpg" alt="Lucía Baldebenito trabajando en su escritorio" loading="lazy">
+      </div>
     </div>
   </div>
 </section>
@@ -749,6 +747,7 @@
       <a href="#servicios">Servicios</a>
       <a href="#propiedades">Propiedades</a>
       <a href="#consultoria">Consultoría</a>
+      <a href="#administracion-consorcios">Administración de consorcios</a>
       <a href="#precios">Planes</a>
       <a href="#descargables">Descargables</a>
       <a href="#blog">Blog</a>
@@ -765,6 +764,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=12"></script>
+<script src="js/script.js?v=13"></script>
 </body>
 </html>
