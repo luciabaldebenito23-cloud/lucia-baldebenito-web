@@ -293,7 +293,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 .primary-nav.is-open { transform: translateX(0); }
 
-.primary-nav ul {
+.primary-nav > ul {
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -937,7 +937,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
     gap: 28px;
     overflow: visible;
   }
-  .primary-nav ul {
+  .primary-nav > ul {
     flex-direction: row;
     gap: 4px;
     flex-wrap: wrap;
