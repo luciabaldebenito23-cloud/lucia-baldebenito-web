@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
     navToggle.setAttribute('aria-expanded', 'false');
     navToggle.setAttribute('aria-label', 'Abrir menú de navegación');
     document.body.style.overflow = '';
+    closeAllDropdowns();
   }
 
   function openMenu() {
@@ -48,8 +49,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* Cerrar con la tecla Escape */
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && primaryNav.classList.contains('is-open')) {
-        closeMenu();
+      if (e.key === 'Escape') {
+        if (primaryNav.classList.contains('is-open')) { closeMenu(); }
+        closeAllDropdowns();
       }
     });
 
@@ -58,6 +60,62 @@ document.addEventListener('DOMContentLoaded', function () {
       if (window.innerWidth >= 960) { closeMenu(); }
     });
   }
+
+  /* -----------------------------------------------------------------------
+     1b. DESPLEGABLES DEL MENÚ
+     "Servicios" se abre y adentro muestra "Consultoría" (que a su vez se
+     despliega en "Planes" y "Descargables") y "Tasaciones". En mobile todo
+     funciona como acordeón dentro del panel; en desktop el de Servicios
+     flota como panel y el de Consultoría queda como acordeón adentro.
+     ----------------------------------------------------------------------- */
+  var navDropdownTriggers = document.querySelectorAll('.nav-dropdown-trigger');
+
+  function closeDropdown(trigger) {
+    trigger.setAttribute('aria-expanded', 'false');
+    var menu = trigger.nextElementSibling;
+    if (menu) { menu.classList.remove('is-open'); }
+  }
+
+  function openDropdown(trigger) {
+    trigger.setAttribute('aria-expanded', 'true');
+    var menu = trigger.nextElementSibling;
+    if (menu) { menu.classList.add('is-open'); }
+  }
+
+  function closeAllDropdowns() {
+    navDropdownTriggers.forEach(function (t) { closeDropdown(t); });
+  }
+
+  navDropdownTriggers.forEach(function (trigger) {
+    trigger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = trigger.getAttribute('aria-expanded') === 'true';
+
+      if (isOpen) {
+        closeDropdown(trigger);
+        return;
+      }
+
+      /* Al abrir, cerramos los desplegables "hermanos" del mismo nivel
+         (pero no el desplegable padre, si este es uno anidado) */
+      var parentMenu = trigger.closest('.nav-dropdown-menu');
+      navDropdownTriggers.forEach(function (t) {
+        if (t === trigger) { return; }
+        var sameLevel = parentMenu ? parentMenu.contains(t) : !t.closest('.nav-dropdown-menu');
+        if (sameLevel) { closeDropdown(t); }
+      });
+
+      openDropdown(trigger);
+    });
+  });
+
+  /* Cerrar los desplegables al hacer click afuera (relevante en desktop,
+     donde el panel de Servicios flota sobre el contenido) */
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.nav-dropdown')) {
+      closeAllDropdowns();
+    }
+  });
 
   /* -----------------------------------------------------------------------
      LINK ACTIVO SEGÚN LA SECCIÓN VISIBLE
@@ -159,6 +217,12 @@ document.addEventListener('DOMContentLoaded', function () {
   populateSelectFromData(filterEstadoSelect, 'estado');
   populateSelectFromData(filterBarrioSelect, 'barrio');
   populateSelectFromData(filterCiudadSelect, 'ciudad');
+
+  /* Corre una vez al cargar la página, además de en cada cambio de filtro,
+     para que el aviso de "no hay propiedades" también aparezca cuando
+     todavía no se cargó ninguna propiedad (no solo cuando un filtro no
+     encuentra resultados). */
+  applyFilters();
 
   function applyFilters() {
     var visibleCount = 0;
