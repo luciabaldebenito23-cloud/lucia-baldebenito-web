@@ -60,8 +60,9 @@
   --color-white: #FFFFFF;
   --color-ink: #14202B;         /* Texto de lectura sobre blanco */
 
-  /* Tipografía de marca — Hello Paris Sans (títulos, con licencia) + Inter (cuerpo) */
-  --font-heading: 'Hello Paris Sans', 'Bricolage Grotesque', 'Segoe UI', sans-serif;
+  /* Tipografía del sitio — Inter en todo (títulos y cuerpo), para máxima
+     legibilidad en mobile. Hello Paris Sans queda cargada pero sin uso. */
+  --font-heading: 'Inter', 'Segoe UI', sans-serif;
   --font-body: 'Inter', 'Segoe UI', sans-serif;
 
   /* Espaciado y forma */
@@ -410,12 +411,12 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .hero-search-title { font-weight: 700; color: var(--color-navy); margin-bottom: 14px; }
 
 .search-form { display: flex; flex-direction: column; gap: 14px; }
-.search-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.search-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
 
 /* -------------------------------------------------------------------------
    9. FORM FIELDS (compartido: hero, tasación, contacto)
    ------------------------------------------------------------------------- */
-.field { display: flex; flex-direction: column; gap: 6px; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .field label {
   font-size: 0.82rem;
   font-weight: 600;
@@ -424,6 +425,8 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .field input,
 .field select,
 .field textarea {
+  width: 100%;
+  min-width: 0;
   padding: 12px 14px;
   border: 1.5px solid var(--color-silver-light);
   border-radius: var(--radius-sm);
