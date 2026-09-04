@@ -86,7 +86,7 @@ collections:
         label: "Ficha técnica"
         widget: "list"
         summary: "{{fields.label}}: {{fields.value}}"
-        field:
+        fields:
           - { name: "label", label: "Etiqueta", widget: "string" }
           - { name: "value", label: "Valor", widget: "string" }
       - name: "servicios"
@@ -134,4 +134,3 @@ collections:
       - { name: "author_name", label: "Nombre del autor/a", widget: "string", default: "Lucía Baldebenito" }
       - { name: "author_role", label: "Rol del autor/a", widget: "string", required: false }
       - { name: "body", label: "Contenido de la nota", widget: "markdown" }
-
