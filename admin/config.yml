@@ -134,3 +134,35 @@ collections:
       - { name: "author_name", label: "Nombre del autor/a", widget: "string", default: "Lucía Baldebenito" }
       - { name: "author_role", label: "Rol del autor/a", widget: "string", required: false }
       - { name: "body", label: "Contenido de la nota", widget: "markdown" }
+
+  - name: "descargables"
+    label: "Descargables"
+    label_singular: "Descargable"
+    folder: "src/content/descargables"
+    create: true
+    delete: true
+    slug: "{{fields.slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{tipo_precio}}"
+    fields:
+      - { name: "slug", label: "Identificador (para la URL)", widget: "string", hint: "Sin espacios ni tildes. Ej: checklist-mudanza." }
+      - { name: "orden", label: "Orden en la grilla", widget: "number", default: 10, hint: "Los números más chicos aparecen primero." }
+      - { name: "title", label: "Título del archivo", widget: "string" }
+      - { name: "formato", label: "Formato", widget: "string", default: "PDF", hint: "Se muestra como etiqueta en la tarjeta. Ej: PDF / Excel / Word" }
+      - { name: "descripcion", label: "Descripción breve", widget: "text", hint: "Qué contiene y para qué sirve." }
+      - name: "tipo_precio"
+        label: "Tipo"
+        widget: "select"
+        default: "gratis"
+        options:
+          - { label: "Gratis (se descarga directo)", value: "gratis" }
+          - { label: "Pago (a través de Mercado Pago)", value: "pago" }
+      - name: "archivo"
+        label: "Archivo para descargar (solo para ítems Gratis)"
+        widget: "file"
+        required: false
+        media_folder: "/descargables"
+        public_folder: "descargables"
+        hint: "Subí acá el PDF/Excel/Word. Dejalo vacío si el ítem es Pago — esos archivos no se suben al sitio porque quedarían públicos."
+      - { name: "precio", label: "Precio en pesos (solo para ítems Pago)", widget: "number", required: false, value_type: "int" }
+      - { name: "checkout_url", label: "Link de pago de Mercado Pago (solo para ítems Pago)", widget: "string", required: false, hint: "Generá un \"Link de pago\" en tu cuenta de Mercado Pago para este producto y pegalo acá." }
