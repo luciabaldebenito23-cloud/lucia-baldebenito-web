@@ -9,6 +9,9 @@ module.exports = function (eleventyConfig) {
   // Panel de edición visual (Sveltia CMS): vive en /admin/ en la raíz del
   // repo, fuera de src/, así que también hay que copiarlo tal cual.
   eleventyConfig.addPassthroughCopy({ admin: "admin" });
+  // Archivos gratuitos de la sección Descargables (PDF, Excel, Word), subidos
+  // desde el panel de edición.
+  eleventyConfig.addPassthroughCopy({ descargables: "descargables" });
 
   // Sort helper: newest-first isn't needed yet (dates aren't tracked per
   // property/post), so collections are ordered by the "orden" front-matter
@@ -23,6 +26,10 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addCollection("blogposts", function (collectionApi) {
     return collectionApi.getFilteredByGlob("src/content/blog/*.md").sort(byOrden);
+  });
+
+  eleventyConfig.addCollection("descargables", function (collectionApi) {
+    return collectionApi.getFilteredByGlob("src/content/descargables/*.md").sort(byOrden);
   });
 
   eleventyConfig.addFilter("whereTrue", function (arr, key) {
