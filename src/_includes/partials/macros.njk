@@ -41,6 +41,43 @@
 </article>
 {% endmacro %}
 
+{% macro descargableCard(d) %}
+{% if d.tipo_precio == "pago" %}
+<article class="descargable-card" data-tipo-precio="pago">
+  <span class="tag-format tag-format-turquoise">{{ d.formato }}</span>
+  <h3>{{ d.title }}</h3>
+  <p>{{ d.descripcion }}</p>
+  <p class="descargable-precio">$ {{ d.precio | formatNumero }}</p>
+  <form class="descargable-compra-form" data-checkout-url="{{ d.checkout_url }}" action="https://formsubmit.co/inmobiliarialb.cr@gmail.com" method="POST" novalidate>
+    <input type="hidden" name="_subject" value="Interés de compra — {{ d.title }}">
+    <input type="hidden" name="_template" value="table">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="producto" value="{{ d.title }}">
+    <div class="field">
+      <label for="dNombre-{{ d.slug }}">Nombre y apellido *</label>
+      <input type="text" id="dNombre-{{ d.slug }}" name="nombre" required autocomplete="name">
+      <span class="field-error" data-error-for="dNombre-{{ d.slug }}"></span>
+    </div>
+    <div class="field">
+      <label for="dEmail-{{ d.slug }}">Email — ahí te mandamos el archivo *</label>
+      <input type="email" id="dEmail-{{ d.slug }}" name="email" required autocomplete="email">
+      <span class="field-error" data-error-for="dEmail-{{ d.slug }}"></span>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Continuar a Mercado Pago</button>
+    <p class="form-note descargable-success" role="status" hidden>¡Gracias! Te llevamos a Mercado Pago para completar el pago. Después de acreditarse, te escribimos por email con el archivo.</p>
+    <p class="form-note is-error descargable-error" role="alert" hidden>Uh, no pudimos registrar tu compra. Probá de nuevo, o escribime por <a href="https://wa.me/542975357512" target="_blank" rel="noopener">WhatsApp</a>.</p>
+  </form>
+</article>
+{% else %}
+<article class="descargable-card" data-tipo-precio="gratis">
+  <span class="tag-format tag-format-turquoise">{{ d.formato }}</span>
+  <h3>{{ d.title }}</h3>
+  <p>{{ d.descripcion }}</p>
+  <a href="/{{ d.archivo }}" class="btn btn-outline btn-block" download>Descargar gratis</a>
+</article>
+{% endif %}
+{% endmacro %}
+
 {% macro blogCard(post) %}
 <a class="blog-card blog-card-link" href="/blog/{{ post.slug }}.html">
   <div class="img-placeholder has-photo blog-media">
