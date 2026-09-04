@@ -5,7 +5,7 @@ description: "Corretaje inmobiliario y consultoría para propietarios y agentes.
 permalink: "index.html"
 navActive: inicio
 ---
-{% from "partials/macros.njk" import propertyCard, blogCard %}
+{% from "partials/macros.njk" import propertyCard, blogCard, descargableCard %}
 {% set destacadas = collections.propiedades | whereTrue("destacada") %}
 
 <!-- ==================== 1. INICIO / HERO ==================== -->
@@ -432,7 +432,13 @@ navActive: inicio
     </div>
 
     <div class="cards-grid descargables-grid" id="descargablesGrid">
-      <p class="descargables-empty">Muy pronto vas a encontrar acá plantillas y checklists listos para descargar. Estamos preparando el contenido — volvé a visitarnos pronto.</p>
+      {% if collections.descargables.length %}
+        {% for item in collections.descargables %}
+          {{ descargableCard(item.data) }}
+        {% endfor %}
+      {% else %}
+        <p class="descargables-empty">Muy pronto vas a encontrar acá plantillas y checklists listos para descargar. Estamos preparando el contenido — volvé a visitarnos pronto.</p>
+      {% endif %}
     </div>
   </div>
 </section>
