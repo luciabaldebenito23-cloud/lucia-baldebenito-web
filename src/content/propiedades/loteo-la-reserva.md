@@ -11,7 +11,7 @@ direccion: General Joaquín, Loteo La Reserva, Bella Vista Sur, Comodoro Rivadav
 precio: 18000
 moneda: USD
 precio_sufijo: + gastos
-destacada: false
+destacada: true
 estado: ''
 apta_credito: ''
 meta:
