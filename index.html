@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/styles.css?v=13">
+<link rel="stylesheet" href="css/styles.css?v=14">
 </head>
 <body>
 
@@ -53,6 +53,7 @@
               </div>
               <ul class="nav-dropdown-menu">
                 <li><a href="#precios" class="nav-link">Planes</a></li>
+                <li><a href="#ebook" class="nav-link">eBook</a></li>
                 <li><a href="#descargables" class="nav-link">Descargables</a></li>
               </ul>
             </li>
@@ -369,7 +370,83 @@
   </div>
 </section>
 
-<!-- ==================== 5B. DESCARGABLES ====================
+<!-- ==================== 5B. EBOOK PROPIETARIO INTELIGENTE ====================
+     Producto insignia de LB Consultora: el método completo (los 4 módulos
+     del mapa maestro) + 5 bonus exclusivos de este eBook (no se venden
+     sueltos en Descargables). Como todavía no hay un link de pago fijo
+     de Mercado Pago para este producto, el formulario NO usa
+     data-checkout-url (a diferencia del ítem pago de Descargables) — al
+     enviarse, solo avisa por mail que alguien lo quiere comprar. Lucía le
+     escribe a mano con el precio/link de pago, y una vez acreditado le
+     manda el eBook por email.
+     ==================== -->
+<section class="section section-tint" id="ebook">
+  <div class="container ebook-grid">
+    <div class="ebook-copy">
+      <span class="badge-lb">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/><path d="M12 8l2.5 2.5-2.5 5.5-2.5-5.5z"/></svg>
+        eBook · LB Consultora
+      </span>
+      <h2>Propietario Inteligente</h2>
+      <p class="lead-text">
+        Todo mi método de consultoría en un solo lugar: la guía completa
+        para decidir, preparar, alquilar, administrar y cerrar el contrato
+        de tu propiedad, sin pisar el palito en el camino.
+      </p>
+
+      <h3 class="ebook-subhead">Qué vas a encontrar</h3>
+      <ol class="ebook-chapters">
+        <li><span class="step-num">01</span><div><strong>Antes de alquilar</strong><span>Si te conviene alquilar o no, cómo evaluar tu propiedad y su estado, la documentación que necesitás en regla, cómo definir el precio justo y armar una publicación que realmente funcione.</span></div></li>
+        <li><span class="step-num">02</span><div><strong>Conseguir y gestionar al inquilino</strong><span>Cómo elegir bien entre los candidatos, armar un contrato que te cubra las espaldas y sostener la relación con tu inquilino sin sorpresas.</span></div></li>
+        <li><span class="step-num">03</span><div><strong>Administración y mantenimiento</strong><span>Cobros, gastos, expensas, proveedores y el mantenimiento preventivo que conserva el valor de tu propiedad mes a mes.</span></div></li>
+        <li><span class="step-num">04</span><div><strong>Finalización del alquiler</strong><span>Cómo recuperar tu propiedad, hacer la inspección de salida, cerrar las cuentas del depósito y dejar todo listo para el próximo inquilino.</span></div></li>
+      </ol>
+
+      <h3 class="ebook-subhead">Bonus incluidos (exclusivos de este eBook)</h3>
+      <ul class="check-list">
+        <li><svg class="icon icon-turquoise" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Checklist Maestro de Mantenimiento y Presupuesto</li>
+        <li><svg class="icon icon-turquoise" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Guía para Regularizar tu Alquiler ante ARCA</li>
+        <li><svg class="icon icon-turquoise" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Kit de 25 Cláusulas para un Contrato Blindado</li>
+        <li><svg class="icon icon-turquoise" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Kit de Liquidación de Depósito y Cierre Económico</li>
+        <li><svg class="icon icon-turquoise" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l5 5L20 6"/></svg> Matriz de Selección de Inquilinos con Puntaje</li>
+      </ul>
+      <p class="fine-print">Cada bonus trae su propia guía de uso — no son solo plantillas en blanco.</p>
+    </div>
+
+    <div class="card form-card ebook-purchase-card">
+      <p class="eyebrow eyebrow-turquoise">eBook completo</p>
+      <h3>Propietario Inteligente</h3>
+      <p class="price">$ 30.000 <span>pago único</span></p>
+      <ul class="pricing-features">
+        <li>Los 4 módulos completos, de punta a punta</li>
+        <li>5 bonus exclusivos de este eBook</li>
+        <li>Formato PDF, para leer donde quieras</li>
+      </ul>
+
+      <form class="descargable-compra-form" action="https://formsubmit.co/inmobiliarialb.cr@gmail.com" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="Interés de compra — eBook Propietario Inteligente">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="producto" value="eBook Propietario Inteligente">
+        <div class="field">
+          <label for="ebNombre">Nombre y apellido *</label>
+          <input type="text" id="ebNombre" name="nombre" required autocomplete="name">
+          <span class="field-error" data-error-for="ebNombre"></span>
+        </div>
+        <div class="field">
+          <label for="ebEmail">Email — ahí te escribimos para coordinar el pago *</label>
+          <input type="email" id="ebEmail" name="email" required autocomplete="email">
+          <span class="field-error" data-error-for="ebEmail"></span>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Quiero comprarlo</button>
+        <p class="form-note descargable-success" role="status" hidden>¡Gracias! Te escribo por email para coordinar el pago y, apenas se acredite, te mando el eBook completo.</p>
+        <p class="form-note is-error descargable-error" role="alert" hidden>Uh, no pudimos registrar tu pedido. Probá de nuevo, o escribime por <a href="https://wa.me/542975357512" target="_blank" rel="noopener">WhatsApp</a>.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== 5C. DESCARGABLES ====================
      Cómo agregar un ítem nuevo (gratis o pago): ver el instructivo en PDF.
      Resumen rápido: copiá el bloque de ejemplo que corresponda (están
      comentados más abajo, dentro de #descargablesGrid), pegalo antes del

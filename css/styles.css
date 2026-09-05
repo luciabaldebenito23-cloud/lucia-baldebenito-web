@@ -718,6 +718,18 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .consorcios-photo { aspect-ratio: 4/5; background: linear-gradient(135deg, #0D2C4A 0%, #4B2468 100%); }
 
 /* -------------------------------------------------------------------------
+   13c. EBOOK PROPIETARIO INTELIGENTE
+   ------------------------------------------------------------------------- */
+.ebook-grid { display: grid; gap: 40px; align-items: start; }
+.ebook-subhead { margin-top: 30px; margin-bottom: 4px; }
+.ebook-chapters { display: flex; flex-direction: column; gap: 18px; margin: 16px 0 28px; padding: 0; list-style: none; }
+.ebook-chapters li { display: flex; gap: 16px; align-items: flex-start; }
+.ebook-chapters strong { display: block; color: var(--color-navy); }
+.ebook-chapters span { color: var(--color-silver); font-size: 0.9rem; }
+.ebook-purchase-card { align-self: start; position: sticky; top: 100px; }
+.ebook-purchase-card h3 { margin-top: 4px; }
+
+/* -------------------------------------------------------------------------
    14. TASACIONES
    ------------------------------------------------------------------------- */
 .tasacion-grid { display: grid; gap: 48px; }
@@ -1006,6 +1018,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   .consultoria-grid { grid-template-columns: 1.1fr 0.9fr; }
   .consorcios-grid { grid-template-columns: 0.9fr 1.1fr; }
   .tasacion-grid { grid-template-columns: 1fr 1fr; }
+  .ebook-grid { grid-template-columns: 1.15fr 0.85fr; }
   .contact-grid { grid-template-columns: 1fr 1fr; }
 
   .cards-grid.services-grid { grid-template-columns: repeat(3, 1fr); }
