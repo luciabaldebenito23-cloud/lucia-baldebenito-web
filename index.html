@@ -369,6 +369,74 @@
   </div>
 </section>
 
+<!-- ==================== 5B. DESCARGABLES ====================
+     Cómo agregar un ítem nuevo (gratis o pago): ver el instructivo en PDF.
+     Resumen rápido: copiá el bloque de ejemplo que corresponda (están
+     comentados más abajo, dentro de #descargablesGrid), pegalo antes del
+     párrafo "descargables-empty", completá los datos entre corchetes
+     y sacá las marcas de comentario que lo envuelven, al principio y al final.
+     - Item GRATIS: necesitas subir el archivo a la carpeta /descargables/
+       del repositorio y apuntar el link ahi.
+     - Item PAGO: NO subas el archivo al sitio (queda publico). Genera un
+       "Link de pago" en tu cuenta de Mercado Pago para ese producto y
+       pegalo en data-checkout-url. Cuando llegue el mail de "Interes de
+       compra", confirma el pago en Mercado Pago ANTES de mandar el
+       archivo: el formulario solo avisa que alguien quiere comprar, no
+       confirma que ya pago.
+     ==================== -->
+<section class="section section-tint" id="descargables">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow eyebrow-turquoise">LB Consultora</p>
+      <h2>Plantillas y checklists para descargar</h2>
+      <p class="section-sub">Los mismos recursos que uso en mis consultorías, listos para que los uses vos. Algunos son gratuitos, otros tienen un valor asociado.</p>
+    </div>
+
+    <div class="cards-grid descargables-grid" id="descargablesGrid">
+
+      <!-- ============ PLANTILLA — ÍTEM GRATIS (copiar y completar) ============
+      <article class="descargable-card" data-tipo-precio="gratis">
+        <span class="tag-format tag-format-turquoise">[PDF / Excel / Word]</span>
+        <h3>[Título del archivo]</h3>
+        <p>[Descripción breve: qué contiene y para qué sirve]</p>
+        <a href="descargables/[nombre-del-archivo.pdf]" class="btn btn-outline btn-block" download>Descargar gratis</a>
+      </article>
+      ============================================================= -->
+
+      <!-- ============ PLANTILLA — ÍTEM PAGO (copiar y completar) ============
+      <article class="descargable-card" data-tipo-precio="pago">
+        <span class="tag-format tag-format-turquoise">[PDF / Excel / Word]</span>
+        <h3>[Título del archivo]</h3>
+        <p>[Descripción breve: qué contiene y para qué sirve]</p>
+        <p class="descargable-precio">$ [precio en pesos]</p>
+        <form class="descargable-compra-form" data-checkout-url="[PEGAR ACÁ EL LINK DE PAGO DE MERCADO PAGO]" action="https://formsubmit.co/inmobiliarialb.cr@gmail.com" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="Interés de compra — [Título del archivo]">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="producto" value="[Título del archivo]">
+          <div class="field">
+            <label for="dNombre-XX">Nombre y apellido *</label>
+            <input type="text" id="dNombre-XX" name="nombre" required autocomplete="name">
+            <span class="field-error" data-error-for="dNombre-XX"></span>
+          </div>
+          <div class="field">
+            <label for="dEmail-XX">Email — ahí te mandamos el archivo *</label>
+            <input type="email" id="dEmail-XX" name="email" required autocomplete="email">
+            <span class="field-error" data-error-for="dEmail-XX"></span>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Continuar a Mercado Pago</button>
+          <p class="form-note descargable-success" role="status" hidden>¡Gracias! Te llevamos a Mercado Pago para completar el pago. Después de acreditarse, te escribimos por email con el archivo.</p>
+          <p class="form-note is-error descargable-error" role="alert" hidden>Uh, no pudimos registrar tu compra. Probá de nuevo, o escribime por <a href="https://wa.me/542975357512" target="_blank" rel="noopener">WhatsApp</a>.</p>
+        </form>
+      </article>
+      ============================================================= -->
+
+      <p class="descargables-empty">Muy pronto vas a encontrar acá plantillas y checklists listos para descargar. Estamos preparando el contenido — volvé a visitarnos pronto.</p>
+
+    </div>
+  </div>
+</section>
+
 <!-- ==================== 6. TASACIONES ==================== -->
 <section class="section section-tint" id="tasaciones">
   <div class="container tasacion-grid">
@@ -511,74 +579,6 @@
       </article>
     </div>
     <p class="fine-print centered">¿Preferís que lo resuelva yo? Los honorarios de corretaje se definen según cada propiedad — <a href="#contacto">escribime</a> y te los detallo sin vueltas.</p>
-  </div>
-</section>
-
-<!-- ==================== 7B. DESCARGABLES ====================
-     Cómo agregar un ítem nuevo (gratis o pago): ver el instructivo en PDF.
-     Resumen rápido: copiá el bloque de ejemplo que corresponda (están
-     comentados más abajo, dentro de #descargablesGrid), pegalo antes del
-     párrafo "descargables-empty", completá los datos entre corchetes
-     y sacá las marcas de comentario que lo envuelven, al principio y al final.
-     - Item GRATIS: necesitas subir el archivo a la carpeta /descargables/
-       del repositorio y apuntar el link ahi.
-     - Item PAGO: NO subas el archivo al sitio (queda publico). Genera un
-       "Link de pago" en tu cuenta de Mercado Pago para ese producto y
-       pegalo en data-checkout-url. Cuando llegue el mail de "Interes de
-       compra", confirma el pago en Mercado Pago ANTES de mandar el
-       archivo: el formulario solo avisa que alguien quiere comprar, no
-       confirma que ya pago.
-     ==================== -->
-<section class="section section-tint" id="descargables">
-  <div class="container">
-    <div class="section-head">
-      <p class="eyebrow eyebrow-turquoise">LB Consultora</p>
-      <h2>Plantillas y checklists para descargar</h2>
-      <p class="section-sub">Los mismos recursos que uso en mis consultorías, listos para que los uses vos. Algunos son gratuitos, otros tienen un valor asociado.</p>
-    </div>
-
-    <div class="cards-grid descargables-grid" id="descargablesGrid">
-
-      <!-- ============ PLANTILLA — ÍTEM GRATIS (copiar y completar) ============
-      <article class="descargable-card" data-tipo-precio="gratis">
-        <span class="tag-format tag-format-turquoise">[PDF / Excel / Word]</span>
-        <h3>[Título del archivo]</h3>
-        <p>[Descripción breve: qué contiene y para qué sirve]</p>
-        <a href="descargables/[nombre-del-archivo.pdf]" class="btn btn-outline btn-block" download>Descargar gratis</a>
-      </article>
-      ============================================================= -->
-
-      <!-- ============ PLANTILLA — ÍTEM PAGO (copiar y completar) ============
-      <article class="descargable-card" data-tipo-precio="pago">
-        <span class="tag-format tag-format-turquoise">[PDF / Excel / Word]</span>
-        <h3>[Título del archivo]</h3>
-        <p>[Descripción breve: qué contiene y para qué sirve]</p>
-        <p class="descargable-precio">$ [precio en pesos]</p>
-        <form class="descargable-compra-form" data-checkout-url="[PEGAR ACÁ EL LINK DE PAGO DE MERCADO PAGO]" action="https://formsubmit.co/inmobiliarialb.cr@gmail.com" method="POST" novalidate>
-          <input type="hidden" name="_subject" value="Interés de compra — [Título del archivo]">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="producto" value="[Título del archivo]">
-          <div class="field">
-            <label for="dNombre-XX">Nombre y apellido *</label>
-            <input type="text" id="dNombre-XX" name="nombre" required autocomplete="name">
-            <span class="field-error" data-error-for="dNombre-XX"></span>
-          </div>
-          <div class="field">
-            <label for="dEmail-XX">Email — ahí te mandamos el archivo *</label>
-            <input type="email" id="dEmail-XX" name="email" required autocomplete="email">
-            <span class="field-error" data-error-for="dEmail-XX"></span>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">Continuar a Mercado Pago</button>
-          <p class="form-note descargable-success" role="status" hidden>¡Gracias! Te llevamos a Mercado Pago para completar el pago. Después de acreditarse, te escribimos por email con el archivo.</p>
-          <p class="form-note is-error descargable-error" role="alert" hidden>Uh, no pudimos registrar tu compra. Probá de nuevo, o escribime por <a href="https://wa.me/542975357512" target="_blank" rel="noopener">WhatsApp</a>.</p>
-        </form>
-      </article>
-      ============================================================= -->
-
-      <p class="descargables-empty">Muy pronto vas a encontrar acá plantillas y checklists listos para descargar. Estamos preparando el contenido — volvé a visitarnos pronto.</p>
-
-    </div>
   </div>
 </section>
 
