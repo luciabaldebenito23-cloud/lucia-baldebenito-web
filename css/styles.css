@@ -1207,6 +1207,42 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 
 /* =========================================================================
+   14. BOTÓN FLOTANTE DE WHATSAPP
+   Burbuja fija en todas las páginas para consultas rápidas y directas.
+   ========================================================================= */
+.whatsapp-float {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-medium);
+  z-index: 200;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 16px 44px rgba(13, 44, 74, 0.24);
+}
+.whatsapp-float .icon {
+  color: var(--color-white);
+  stroke-width: 1.8;
+}
+@media (min-width: 640px) {
+  .whatsapp-float {
+    right: 30px;
+    bottom: 30px;
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* =========================================================================
    ACCESIBILIDAD — reducir movimiento
    ========================================================================= */
 @media (prefers-reduced-motion: reduce) {
