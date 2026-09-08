@@ -941,6 +941,9 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .footer-social { display: flex; flex-direction: column; gap: 10px; }
 .footer-social a:hover { color: var(--color-turquoise); }
 .footer-bottom { padding-top: 22px; font-size: 0.8rem; color: rgba(255,255,255,0.55); }
+.footer-legal { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 10px; }
+.footer-legal a { color: rgba(255,255,255,0.55); }
+.footer-legal a:hover { color: var(--color-turquoise); }
 
 /* =========================================================================
    RESPONSIVE — TABLET (≥ 640px)
