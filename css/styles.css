@@ -1246,6 +1246,50 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 
 /* =========================================================================
+   22. PREGUNTAS FRECUENTES (FAQ)
+   Acordeón nativo con <details>/<summary> — sin JS, accesible y
+   rastreable por buscadores e IA tal cual se ve en pantalla.
+   ========================================================================= */
+.faq-list {
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.faq-item {
+  background: var(--color-white);
+  border: 1px solid var(--color-silver-light);
+  border-radius: var(--radius-md);
+  padding: 0 24px;
+  transition: box-shadow var(--transition);
+}
+.faq-item[open] { box-shadow: var(--shadow-soft); }
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 20px 0;
+  margin: 0;
+  font-weight: 700;
+  color: var(--color-navy);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--color-purple);
+  transition: transform var(--transition);
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-answer { padding: 0 0 20px; color: var(--color-silver); }
+.faq-answer p { margin: 0; }
+
+/* =========================================================================
    ACCESIBILIDAD — reducir movimiento
    ========================================================================= */
 @media (prefers-reduced-motion: reduce) {
