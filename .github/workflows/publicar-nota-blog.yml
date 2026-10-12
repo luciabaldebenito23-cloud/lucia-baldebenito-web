@@ -25,6 +25,13 @@ jobs:
             echo "No hay nada programado."; echo "hecho=no" >> "$GITHUB_OUTPUT"; exit 0
           fi
           git mv _programado/herencia-entre-hermanos.html blog/herencia-entre-hermanos.html
+          if [ -f "img/blog/Familia revisando papeles del hogar.png" ]; then
+            python3 -m pip install --quiet --user --break-system-packages pillow || python3 -m pip install --quiet --user pillow || true
+            python3 -c "from PIL import Image; Image.open('img/blog/Familia revisando papeles del hogar.png').convert('RGB').save('img/blog/herencia-entre-hermanos-cover.jpg', 'JPEG', quality=82, optimize=True, progressive=True)" \
+              || convert "img/blog/Familia revisando papeles del hogar.png" -quality 82 -interlace JPEG "img/blog/herencia-entre-hermanos-cover.jpg" \
+              || cp "img/blog/Familia revisando papeles del hogar.png" "img/blog/herencia-entre-hermanos-cover.jpg"
+            git rm --quiet "img/blog/Familia revisando papeles del hogar.png"
+          fi
           python3 - <<'PY'
           import io
           p = "index.html"
@@ -58,7 +65,7 @@ jobs:
           PY
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A blog index.html sitemap.xml _programado
+          git add -A blog img/blog index.html sitemap.xml _programado
           git commit -m "Publicar nota: Heredamos la casa de mamá entre hermanos"
           git push
           echo "hecho=si" >> "$GITHUB_OUTPUT"
