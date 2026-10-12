@@ -1,0 +1,70 @@
+name: Publicar nota programada del blog
+
+# Lunes 12/10/2026 a las 8:00 (hora Argentina) = 11:00 UTC.
+# Solo actúa si existe _programado/herencia-entre-hermanos.html,
+# así que después de publicar no vuelve a hacer nada.
+on:
+  schedule:
+    - cron: "0 11 12 10 *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Mover la nota al blog, sumar la tarjeta al inicio y al sitemap
+        id: publicar
+        run: |
+          if [ ! -f _programado/herencia-entre-hermanos.html ]; then
+            echo "No hay nada programado."; echo "hecho=no" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          git mv _programado/herencia-entre-hermanos.html blog/herencia-entre-hermanos.html
+          python3 - <<'PY'
+          import io
+          p = "index.html"
+          s = io.open(p, encoding="utf-8").read()
+          if 'href="blog/herencia-entre-hermanos.html"' not in s:
+              anchor = '<div class="cards-grid blog-grid">\n'
+              i = s.index('id="blog"')
+              j = s.index(anchor, i) + len(anchor)
+              card = (
+                  '      <a class="blog-card blog-card-link" href="blog/herencia-entre-hermanos.html">\n'
+                  '        <div class="img-placeholder has-photo blog-media">\n'
+                  '          <img src="img/blog/herencia-entre-hermanos-cover.jpg" alt="Portada del artículo sobre herencias de propiedades entre hermanos" loading="lazy">\n'
+                  '        </div>\n'
+                  '        <div class="blog-body">\n'
+                  '          <p class="eyebrow eyebrow-purple small">Sucesiones y herencias</p>\n'
+                  '          <h3>Heredamos la casa de mamá entre hermanos: ¿y ahora qué hacemos?</h3>\n'
+                  '          <p>Sucesión, tasación y las opciones para vender, comprar la parte de los demás o mantener el condominio sin romper la relación familiar.</p>\n'
+                  '          <span class="blog-meta">Lucía Baldebenito · 4 min de lectura</span>\n'
+                  '        </div>\n'
+                  '      </a>\n\n'
+              )
+              s = s[:j] + card + s[j:]
+              io.open(p, "w", encoding="utf-8").write(s)
+          p = "sitemap.xml"
+          s = io.open(p, encoding="utf-8").read()
+          if "blog/herencia-entre-hermanos.html" not in s:
+              entry = ("<url>\n<loc>https://luciabaldebenito.com.ar/blog/herencia-entre-hermanos.html</loc>\n"
+                       "<lastmod>2026-10-12</lastmod>\n<changefreq>monthly</changefreq>\n<priority>0.6</priority>\n</url>\n")
+              s = s.replace("</urlset>", entry + "</urlset>")
+              io.open(p, "w", encoding="utf-8").write(s)
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A blog index.html sitemap.xml _programado
+          git commit -m "Publicar nota: Heredamos la casa de mamá entre hermanos"
+          git push
+          echo "hecho=si" >> "$GITHUB_OUTPUT"
+
+      - name: Pedir a GitHub Pages que actualice el sitio
+        if: steps.publicar.outputs.hecho == 'si'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "Pages se actualiza solo con el push."
