@@ -178,6 +178,10 @@ document.addEventListener('DOMContentLoaded', function () {
   var filterAptaCreditoSelect = document.getElementById('filterAptaCredito');
   var filterPrecioMin = document.getElementById('filterPrecioMin');
   var filterPrecioMax = document.getElementById('filterPrecioMax');
+  var filterMonedaSelect = document.getElementById('filterMoneda');
+  var filterPrecioHint = document.getElementById('filterPrecioHint');
+  /* Moneda por defecto de la página (Ventas: USD, Alquileres: pesos). */
+  var monedaDefault = (filterMonedaSelect && filterMonedaSelect.dataset.monedaDefault) || 'USD';
   var filtersClear = document.getElementById('filtersClear');
 
   var TIPO_LABELS = {
@@ -196,7 +200,8 @@ document.addEventListener('DOMContentLoaded', function () {
     ciudad: 'todos',
     aptaCredito: 'indistinto',
     precioMin: null,
-    precioMax: null
+    precioMax: null,
+    moneda: 'todas'
   };
 
   /* Páginas de Ventas / Alquileres / Emprendimientos no tienen chip de
@@ -273,16 +278,25 @@ document.addEventListener('DOMContentLoaded', function () {
         matchesAptaCredito = aptaCredito === activeFilters.aptaCredito;
       }
 
+      /* Moneda: las propiedades sin data-moneda se toman en la moneda por
+         defecto de la página. El rango de precio se compara en la moneda
+         elegida (la de defecto si está en "Todas"). */
+      var cardMoneda = (card.dataset.moneda || monedaDefault).toUpperCase();
+      var matchesMoneda = activeFilters.moneda === 'todas' || cardMoneda === activeFilters.moneda;
+      var rangoMoneda = activeFilters.moneda === 'todas' ? monedaDefault : activeFilters.moneda;
+
       var precio = card.dataset.precio ? Number(card.dataset.precio) : null;
       var matchesPrecio = true;
-      if (precio !== null) {
+      if ((precioMin !== null || precioMax !== null) && cardMoneda !== rangoMoneda) {
+        matchesPrecio = false;
+      } else if (precio !== null) {
         if (precioMin !== null && precio < precioMin) { matchesPrecio = false; }
         if (precioMax !== null && precio > precioMax) { matchesPrecio = false; }
       } else if (precioMin !== null || precioMax !== null) {
         matchesPrecio = false;
       }
 
-      var isVisible = matchesOperacion && matchesTipo && matchesEstado && matchesBarrio && matchesCiudad && matchesAptaCredito && matchesPrecio;
+      var isVisible = matchesOperacion && matchesTipo && matchesEstado && matchesBarrio && matchesCiudad && matchesAptaCredito && matchesMoneda && matchesPrecio;
 
       card.hidden = !isVisible;
       if (isVisible) { visibleCount++; }
@@ -379,6 +393,20 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  function updatePrecioHint() {
+    if (!filterPrecioHint) return;
+    var m = activeFilters.moneda === 'todas' ? monedaDefault : activeFilters.moneda;
+    filterPrecioHint.textContent = m === 'ARS' ? 'En pesos.' : 'En USD.';
+  }
+
+  if (filterMonedaSelect) {
+    filterMonedaSelect.addEventListener('change', function () {
+      activeFilters.moneda = filterMonedaSelect.value;
+      updatePrecioHint();
+      applyFilters();
+    });
+  }
+
   var filtersToggleLabel = filtersToggle ? filtersToggle.querySelector('.filters-toggle-label') : null;
 
   if (filtersToggle && advancedFilters) {
@@ -402,7 +430,8 @@ document.addEventListener('DOMContentLoaded', function () {
         ciudad: 'todos',
         aptaCredito: 'indistinto',
         precioMin: null,
-        precioMax: null
+        precioMax: null,
+        moneda: 'todas'
       };
 
       document.querySelectorAll('.filter-chip').forEach(function (c) {
@@ -418,6 +447,8 @@ document.addEventListener('DOMContentLoaded', function () {
       if (filterAptaCreditoSelect) { filterAptaCreditoSelect.value = 'indistinto'; }
       if (filterPrecioMin) { filterPrecioMin.value = ''; }
       if (filterPrecioMax) { filterPrecioMax.value = ''; }
+      if (filterMonedaSelect) { filterMonedaSelect.value = 'todas'; }
+      updatePrecioHint();
 
       applyFilters();
     });
