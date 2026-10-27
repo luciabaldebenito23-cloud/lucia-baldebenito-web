@@ -120,9 +120,8 @@ button { font-family: inherit; cursor: pointer; }
 input, select, textarea { font-family: inherit; font-size: 1rem; }
 
 .container {
-  max-width: var(--container-w);
+  width: min(var(--container-w), 86%);
   margin: 0 auto;
-  padding: 0 7%;
 }
 
 .section { padding: 88px 0; }
