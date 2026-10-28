@@ -1,5 +1,5 @@
 /* =========================================================================
-   Lucía Baldebenito — Corretaje Inmobiliario & LB Consultora
+   Lucía Baldebenito — Corretaje Inmobiliario
    styles.css — Mobile-first, CSS Variables según Manual de Marca v1.0
    ========================================================================= */
 
@@ -52,7 +52,7 @@
   --color-navy-soft: #163A5C;
   --color-purple: #4B2468;      /* Púrpura Profundo — Corretaje */
   --color-purple-soft: #6a3690;
-  --color-turquoise: #00A896;   /* Turquesa Cyan — LB Consultora */
+  --color-turquoise: #00A896;   /* Turquesa Cyan — acento secundario */
   --color-turquoise-soft: #02c2ad;
   --color-silver: #708090;      /* Plata / Gris Frío — secundario */
   --color-silver-light: #E4E8ED;
@@ -126,11 +126,11 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 
 .section { padding: 88px 0; }
 .section-tint { background: var(--color-bg); }
-.section-turquoise {
+.section-navy {
   background: linear-gradient(180deg, #0D2C4A 0%, #0f3a5c 100%);
   color: var(--color-white);
 }
-.section-turquoise h2, .section-turquoise h3 { color: var(--color-white); }
+.section-navy h2, .section-navy h3 { color: var(--color-white); }
 
 .section-head { max-width: 640px; margin: 0 0 48px; }
 .section-sub { color: var(--color-silver); font-size: 1.05rem; }
@@ -151,7 +151,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .eyebrow.small { margin-bottom: 8px; font-size: 0.72rem; }
 .eyebrow-navy { color: var(--color-navy); }
 .eyebrow-purple { color: var(--color-purple); }
-.eyebrow-turquoise { color: var(--color-turquoise); }
+.eyebrow-white { color: var(--color-white); }
 
 /* -------------------------------------------------------------------------
    3. ICONOS (línea 1.5px, sin relleno — lenguaje del isotipo)
@@ -169,7 +169,6 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 .icon-lg { width: 34px; height: 34px; }
 .icon-navy { color: var(--color-navy); }
 .icon-purple { color: var(--color-purple); }
-.icon-turquoise { color: var(--color-turquoise); }
 
 /* -------------------------------------------------------------------------
    4. BOTONES
@@ -204,13 +203,6 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   border-color: var(--color-navy);
 }
 .btn-outline:hover { background: var(--color-navy); color: var(--color-white); }
-
-.btn-turquoise {
-  background: var(--color-turquoise);
-  color: var(--color-navy);
-  box-shadow: 0 4px 24px rgba(0, 168, 150, 0.28);
-}
-.btn-turquoise:hover { background: var(--color-turquoise-soft); }
 
 /* -------------------------------------------------------------------------
    5. HEADER / NAV
@@ -677,27 +669,11 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
 }
 
 /* -------------------------------------------------------------------------
-   13. CONSULTORÍA (LB Consultora — turquesa)
+   13. ASESORAMIENTO DE COMPRA (fondo navy)
    ------------------------------------------------------------------------- */
 .consultoria-grid { display: grid; gap: 48px; align-items: center; }
 
-.badge-lb {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(0, 168, 150, 0.16);
-  color: var(--color-turquoise);
-  border: 1px solid rgba(0, 168, 150, 0.4);
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: 18px;
-}
-
-.section-turquoise .lead-text { color: rgba(255,255,255,0.82); }
+.section-navy .lead-text { color: rgba(255,255,255,0.82); }
 
 .consultoria-tracks { display: grid; gap: 16px; margin: 28px 0; }
 .track-card {
@@ -706,7 +682,7 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   border-radius: var(--radius-md);
   padding: 20px;
 }
-.track-card h3 { color: var(--color-turquoise); margin-bottom: 6px; }
+.track-card h3 { color: var(--color-white); margin-bottom: 6px; }
 .track-card p { color: rgba(255,255,255,0.78); font-size: 0.92rem; margin-bottom: 0; }
 
 .method-steps { display: flex; flex-direction: column; gap: 18px; margin: 28px 0; }
@@ -715,14 +691,14 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   font-family: var(--font-heading);
   font-weight: 800;
   font-size: 1.3rem;
-  color: var(--color-turquoise);
-  opacity: 0.6;
+  color: var(--color-white);
+  opacity: 0.55;
   min-width: 40px;
 }
 .method-steps strong { display: block; color: var(--color-white); }
 .method-steps span { color: rgba(255,255,255,0.72); font-size: 0.9rem; }
 
-.consultoria-photo { aspect-ratio: 4/5; background: linear-gradient(135deg, #0D2C4A 0%, #00A896 100%); }
+.consultoria-photo { aspect-ratio: 4/5; background: linear-gradient(135deg, #0D2C4A 0%, #163A5C 100%); }
 
 /* -------------------------------------------------------------------------
    13b. ADMINISTRACIÓN DE CONSORCIOS
@@ -824,8 +800,6 @@ input, select, textarea { font-family: inherit; font-size: 1rem; }
   letter-spacing: 0.03em;
   color: var(--color-white);
 }
-.tag-format-turquoise { background: var(--color-turquoise); }
-
 .descargable-precio {
   font-family: var(--font-body);
   font-weight: 800;

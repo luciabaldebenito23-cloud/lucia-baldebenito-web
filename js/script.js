@@ -1,5 +1,5 @@
 /* =========================================================================
-   Lucía Baldebenito — Corretaje Inmobiliario & LB Consultora
+   Lucía Baldebenito — Corretaje Inmobiliario
    script.js — Interactividad en JavaScript vanilla
    Contenido:
      1. Menú móvil (hamburguesa)
